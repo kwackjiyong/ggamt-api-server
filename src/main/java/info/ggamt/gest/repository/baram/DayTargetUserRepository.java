@@ -6,6 +6,4 @@ import org.springframework.stereotype.Repository;
 import info.ggamt.gest.domain.baram.DayTargetUser;
 
 @Repository
-public interface DayTargetUserRepository extends JpaRepository<DayTargetUser, Long> {
-
-}
+public interface DayTargetUserRepository extends JpaRepository<DayTargetUser, Long> {}

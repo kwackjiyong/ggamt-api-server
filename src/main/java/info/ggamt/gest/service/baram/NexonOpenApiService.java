@@ -14,6 +14,7 @@ import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
 import java.util.List;
 import java.util.ArrayList;
+import java.net.ConnectException;
 import java.net.URI;
 import java.net.URLEncoder;
 import java.net.http.HttpClient;
@@ -38,7 +39,7 @@ public class NexonOpenApiService {
     private static ObjectMapper objectMapper = new ObjectMapper();
 
     /** api key 로드 */
-    private void keyLoading() {
+    public void keyLoading() {
         Properties properties = new Properties();
         try (InputStream input = NexonOpenApiService.class.getResourceAsStream("/apiKey.properties")) {
             if (input == null) {
@@ -100,9 +101,9 @@ public class NexonOpenApiService {
      * [open api]
      * 유저의 ocid 조회
      */
-    public List<String> retvOcidOpenApi (List<String> userNames) {
+    public List<String> retvOcidOpenApi (HttpClient client, List<String> userNames) {
         List<String> ocids = new ArrayList<String>();
-        HttpClient client = HttpClient.newHttpClient();
+        
         List<CompletableFuture<HttpResponse<String>>> futures = new ArrayList<>();
         // 각 URL에 대해 비동기 요청을 수행하고 futures 리스트에 추가
         for (String userName : userNames) {
@@ -111,6 +112,7 @@ public class NexonOpenApiService {
             HttpRequest request = HttpRequest.newBuilder()
                     .uri(URI.create("https://open.api.nexon.com/baram/v1/id?" + characterName + "&" + serverName))
                     .header("x-nxopen-api-key", key)
+                    .version(HttpClient.Version.HTTP_2)
                     .build();
 
             CompletableFuture<HttpResponse<String>> future = client.sendAsync(request, HttpResponse.BodyHandlers.ofString());

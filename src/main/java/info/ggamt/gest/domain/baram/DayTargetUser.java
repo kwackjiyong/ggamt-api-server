@@ -2,18 +2,20 @@ package info.ggamt.gest.domain.baram;
 
 import java.sql.Date;
 
-import org.springframework.data.annotation.Id;
-
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 /**
  * 당일 수집 대상자
  */
 @Entity
-@Table(name = "gest.br_d_retv_user_lst_tb")
+@Table(name = "br_d_retv_user_lst_tb")
 public class DayTargetUser {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     /** 날짜구분 */
     private String hsDt;

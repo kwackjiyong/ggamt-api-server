@@ -3,14 +3,17 @@ package info.ggamt.gest.domain.baram;
 import java.sql.Date;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
 /** 실시간 동시 접속자 수집기록 */
 @Entity
-@Table(name = "gest.br_t_hist_tb")
+@Table(name = "br_t_hist_tb")
 public class TimeHistory {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String hsDttm;
     private Long jobTp;
