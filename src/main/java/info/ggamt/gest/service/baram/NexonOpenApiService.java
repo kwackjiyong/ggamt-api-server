@@ -28,6 +28,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import info.ggamt.gest.dto.baram.BaramUserBasicInfoDTO;
 import info.ggamt.gest.dto.common.UserOcidDTO;
+import info.ggamt.gest.util.util;
 
 
 /** 
@@ -99,7 +100,10 @@ public class NexonOpenApiService {
 
     /**
      * [open api]
-     * 유저의 ocid 조회
+     * 모든 유저의 ocid 조회
+     * @param client
+     * @param userNames
+     * @return ocids
      */
     public List<String> retvOcidOpenApi (HttpClient client, List<String> userNames) {
         List<String> ocids = new ArrayList<String>();
@@ -138,7 +142,42 @@ public class NexonOpenApiService {
         return ocids;
     }
 
-    // public List<BaramUserBasicInfoDTO> retvBasicInfoOpenApi (List<String> ocids) {
-        
-    // }
+    /**
+     * [open api]
+     * 모든 유저의 기본정보 조회
+     * @param client
+     * @param ocids
+     * @return baramInfos
+     */
+    public List<BaramUserBasicInfoDTO> retvBasicInfoOpenApi (HttpClient client, List<String> ocids) {
+        List<BaramUserBasicInfoDTO> baramInfos = new ArrayList<BaramUserBasicInfoDTO>();
+        List<CompletableFuture<HttpResponse<String>>> futures = new ArrayList<>();
+        for (String ocid : ocids) {
+            String queryOcid = "ocid=" + util.buildQueryString(ocid);
+            HttpRequest request = HttpRequest.newBuilder()
+                    .uri(URI.create("https://open.api.nexon.com/baram/v1/character/basic?" + queryOcid))
+                    .header("x-nxopen-api-key", key)
+                    .version(HttpClient.Version.HTTP_2)
+                    .build();
+            CompletableFuture<HttpResponse<String>> future = client.sendAsync(request, HttpResponse.BodyHandlers.ofString());
+            futures.add(future);
+        }
+        CompletableFuture<Void> allOfFutures = CompletableFuture.allOf(futures.toArray(new CompletableFuture[0]));
+
+        allOfFutures.thenRun(() -> {
+            // 모든 응답을 가져와서 처리
+            for (CompletableFuture<HttpResponse<String>> future : futures) {
+                try {
+                    HttpResponse<String> response = future.get(); // 각 요청의 응답을 가져옴
+                    if(response.body() != null) {
+                        BaramUserBasicInfoDTO basicInfo = objectMapper.readValue(response.body(), BaramUserBasicInfoDTO.class);
+                        baramInfos.add(basicInfo);
+                    }
+                } catch (java.util.concurrent.CompletionException | InterruptedException | ExecutionException | JsonProcessingException e) {
+                    // e.printStackTrace();
+                }
+            }
+        }).join(); // 모든 요청의 완료까지 대기
+        return baramInfos;
+    }
 }

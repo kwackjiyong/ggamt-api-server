@@ -1,7 +1,7 @@
 package info.ggamt.gest.dto.baram;
 
 public class BaramUserBasicInfoDTO {
-    private String character_name; //포맨,
+    private String character_name; //이름,
     private String character_date_create; //2015-10-18T02:20:37.25Z",
     private String character_date_last_login; //2024-08-08T11:15:11.878Z",
     private String character_date_last_logout; //2024-08-08T11:11:19.43Z",
