@@ -15,6 +15,8 @@ import info.ggamt.gest.repository.baram.TimeHistoryRepository;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 
 import java.util.List;
@@ -112,7 +114,8 @@ public class BaramService {
     public long gthrCurrentUser () {
         nexonOpenApiService.keyLoading();
         List<Long> jobCnt = new ArrayList<Long>();
-        String hsDttm = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH시"));
+        ZonedDateTime koreaTime = ZonedDateTime.now(ZoneId.of("Asia/Seoul"));
+        String hsDttm = koreaTime.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH시"));
         // 직업별 조회 0~9
         for (long j=0; j<10; j++) {
             System.out.println("job start:"+j);
