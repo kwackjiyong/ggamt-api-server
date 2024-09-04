@@ -8,8 +8,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import info.ggamt.gest.dto.baram.BaramHistoryDTO;
 import info.ggamt.gest.service.baram.BaramService;
-import org.springframework.web.bind.annotation.PostMapping;
-import java.util.List;
 
 
 @Controller
@@ -30,25 +28,25 @@ public class BaramRetvController {
         return ResponseEntity.ok().body(result);
     }
     
-    @GetMapping("/ocid")
-    public ResponseEntity<String> getAllOcid() {
-        List<String> result = BaramService.getAllOcids();
-        System.out.println("result:"+ result.size());
-        return ResponseEntity.ok().body("result:"+ result.size());
-    }
+    // @GetMapping("/ocid")
+    // public ResponseEntity<String> getAllOcid() {
+    //     List<String> result = BaramService.getAllOcids();
+    //     System.out.println("result:"+ result.size());
+    //     return ResponseEntity.ok().body("result:"+ result.size());
+    // }
 
-    @PostMapping("/ocid/update")
-    public ResponseEntity<String> gthrTodayOcids() {
-        long cnt = BaramService.gthrTodayOcids();
-        System.out.println("result cnt:" + cnt);
-        return ResponseEntity.ok().body("result:"+ cnt);
-    }
+    // @PostMapping("/ocid/update")
+    // public ResponseEntity<String> gthrTodayOcids() {
+    //     long cnt = BaramService.gthrTodayOcids();
+    //     System.out.println("result cnt:" + cnt);
+    //     return ResponseEntity.ok().body("result:"+ cnt);
+    // }
 
-    @PostMapping("/history/update")
-    public ResponseEntity<String> gthrCurrentUser() {
-        long cnt = BaramService.gthrCurrentUser();
-        System.out.println("result cnt:" + cnt);
-        return ResponseEntity.ok().body("result:"+ cnt);
-    }
+    // @PostMapping("/history/update")
+    // public ResponseEntity<String> gthrCurrentUser() {
+    //     long cnt = BaramService.gthrCurrentUser();
+    //     System.out.println("result cnt:" + cnt);
+    //     return ResponseEntity.ok().body("result:"+ cnt);
+    // }
     
 }
