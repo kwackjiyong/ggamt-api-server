@@ -135,7 +135,7 @@ public class NexonOpenApiService {
                         ocids.add(uo.getOcid());
                     }
                 } catch (java.util.concurrent.CompletionException | InterruptedException | ExecutionException | JsonProcessingException e) {
-                    // e.printStackTrace();
+                    e.printStackTrace();
                 }
             }
         }).join(); // 모든 요청이 완료될 때까지 대기
