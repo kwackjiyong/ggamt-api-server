@@ -33,7 +33,7 @@ public class BaramBatchScheduler {
     //     System.out.println("Batch Job 종료 시간: " + new Date());
     // }
 
-    @Scheduled(cron = "*/10 * * * * ?")
+    @Scheduled(cron = "* */10 * * * ?")
     public void runBatchBaramCurrentMacroJob() throws Exception {
         System.out.println("Batch Job 시작 시간: " + new Date());
 
