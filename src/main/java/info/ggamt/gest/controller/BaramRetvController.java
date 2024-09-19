@@ -61,21 +61,21 @@ public class BaramRetvController {
     }
     // @GetMapping("/ocid")
     // public ResponseEntity<String> getAllOcid() {
-    //     List<String> result = BaramService.getAllOcids();
+    //     List<String> result = baramService.getAllOcids();
     //     System.out.println("result:"+ result.size());
     //     return ResponseEntity.ok().body("result:"+ result.size());
     // }
 
     // @PostMapping("/ocid/update")
     // public ResponseEntity<String> gthrTodayOcids() {
-    //     long cnt = BaramService.gthrTodayOcids();
+    //     long cnt = baramService.gthrTodayOcids();
     //     System.out.println("result cnt:" + cnt);
     //     return ResponseEntity.ok().body("result:"+ cnt);
     // }
 
     // @PostMapping("/history/update")
     // public ResponseEntity<String> gthrCurrentUser() {
-    //     long cnt = BaramService.gthrCurrentUser();
+    //     long cnt = baramService.gthrCurrentUser();
     //     System.out.println("result cnt:" + cnt);
     //     return ResponseEntity.ok().body("result:"+ cnt);
     // }
